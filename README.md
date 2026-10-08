@@ -1,11 +1,36 @@
-# Keyboard Store
+# KEYFORGE — Mechanical Keyboard Store
 
-A simple online store for mechanical keyboards, switches, keycaps and accessories.
+A premium, dark-themed online store for mechanical keyboards, keycaps and switches. Pure HTML/CSS/JS (ES modules), no build step.
 
 ## Run
-Open `index.html` in a browser, or run `python3 -m http.server` and visit http://localhost:8000.
+```bash
+python3 -m http.server 8000   # any static server works; ES modules need http://, not file://
+# open http://localhost:8000
+```
 
-## Roadmap
-- Product detail pages and search/filter
-- Persistent cart (localStorage)
-- Real checkout / payments backend
+## What's inside
+- **Home**: animated hero with a live 3D keyboard (hover, press, drag-to-rotate, RGB effects, 6 layouts), category cards, featured products, switch comparison with synthesised sound previews, builder teaser, animated stats, review carousel.
+- **Shop**: live filters (category, price range, layout, switch type, material, stock), 6 sort orders, URL-synced state, skeleton/empty/error states.
+- **Product page**: gallery (incl. interactive keyboard), variants, quantity, specs, reviews, related items.
+- **Keyboard builder**: 6 steps (keyboard, case, keycaps, switches, plate, RGB) with live preview and running total.
+- **Cart drawer + cart page**: fly-to-cart animation, coupons (`KEYFORGE10`, `WELCOME500`, `FREESHIP`), free-shipping progress.
+- **Checkout**: 3 animated steps, validation, card / GCash / Maya / COD, order confirmation.
+- **Account**: profile, order history, order tracking, wishlist, addresses, payment methods.
+- **Admin** (`admin@keyforge.dev` / `admin123`): products CRUD, inventory, categories, orders, customers, sales, discounts, reviews, charts.
+- Demo customer: `demo@keyforge.dev` / `demo1234`. Shortcuts: `/` or Ctrl/⌘+K opens search.
+
+## Structure
+```
+index.html
+css/        base · layout · keyboard · shop · views
+js/core/    dom (safe html templates) · store (localStorage) · router · cart · audio · anim · icons
+js/data/    products · layouts (key geometry) · themes · seed · api (swap for a real backend)
+js/components/  Navbar · Footer · ProductCard · ProductGrid · ProductFilter · KeyboardPreview · KeyboardBuilder
+                SwitchCard · CartDrawer · CheckoutForm · ReviewCard · ToastNotification · SearchOverlay · Charts …
+js/views/   Home · Products · ProductDetails · KeyboardBuilder · Cart · Checkout · Auth · Account · AdminDashboard …
+```
+
+## Notes
+- All data is sample data persisted in `localStorage` (`window.keyforge.reset()` clears it). Auth and payments are simulated; passwords are stored in plain text in the browser for demo purposes only. Do not reuse this for production.
+- Product images are procedural SVG (`js/components/ProductArt.js`); set `product.image.src` to use real photos.
+- `graphify-out/` holds a knowledge graph of the codebase (`graph.html`, `GRAPH_REPORT.md`) built with [graphify](https://github.com/safishamsi/graphify). The UI was built following the [impeccable](https://github.com/pbakaus/impeccable) design skill (installed under `.agents/skills`).
