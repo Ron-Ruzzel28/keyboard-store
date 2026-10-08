@@ -9,7 +9,7 @@
 //   <product-id> <image-url> [source / credit text]
 // Requires Node 18+. No dependencies. Run it on a machine with normal internet access.
 import { readFile, writeFile, mkdir, access, readdir } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -23,7 +23,7 @@ const EXT = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'im
 const exists = (p) => access(p).then(() => true, () => false);
 
 // Known product ids come from the catalogue, so typos are caught early.
-const { PRODUCTS } = await import(path.join(root, 'js/data/products.js'));
+const { PRODUCTS } = await import(pathToFileURL(path.join(root, 'js/data/products.js')).href);
 const ids = new Set(PRODUCTS.map((p) => p.id));
 
 const lines = (await readFile(LIST, 'utf8')).split(/\r?\n/);

@@ -55,7 +55,7 @@ export function buildKeyboard(init = {}) {
       </div>
     </div>`);
 
-  const kb = createKeyboard({ layout: b.layout, theme: b.keycaps, caseColor: b.case, hue: b.hue, fx: b.fx, switchType: b.switch, readout: true, rx: 18, ry: -8 });
+  const kb = createKeyboard({ layout: b.layout, theme: b.keycaps, caseColor: b.case, hue: b.hue, fx: b.fx, switchType: b.switch, plate: b.plate, readout: true, rx: 18, ry: -8 });
   $('#b-preview', el).append(kb.el);
 
   const panels = {
@@ -89,9 +89,9 @@ export function buildKeyboard(init = {}) {
     if (o) {
       const k = o.dataset.k, v = k === 'hue' ? +o.dataset.v : o.dataset.v;
       b[k === 'switch' ? 'switch' : k] = v;
-      const map = { layout: { layout: v }, case: { caseColor: v }, keycaps: { theme: v }, switch: { switchType: v }, hue: { hue: v }, fx: { fx: v } }[k];
+      const map = { layout: { layout: v }, case: { caseColor: v }, keycaps: { theme: v }, switch: { switchType: v }, hue: { hue: v }, fx: { fx: v }, plate: { plate: v } }[k];
       if (map) kb.update(map);
-      if (k === 'switch') { playSwitch(v); kb.typeDemo(); }
+      if (k === 'switch' || k === 'plate') { kb.typeDemo(); }
       $$(`[data-k="${k}"]`, el).forEach((n) => n.setAttribute('aria-pressed', String(n.dataset.v) === String(v)));
       paintSummary();
       return;

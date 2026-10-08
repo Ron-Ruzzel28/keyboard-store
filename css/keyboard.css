@@ -22,7 +22,14 @@
 .kb:focus-visible { outline: 2px solid var(--accent); outline-offset: 8px; }
 .kb-case {
   position: relative; padding: calc(var(--ku) * 0.5); border-radius: calc(var(--ku) * 0.5);
-  background: linear-gradient(160deg, color-mix(in srgb, var(--case) 88%, white), var(--case) 55%);
+  /* corner screws + fine brushed-metal grain over the anodised finish */
+  background:
+    radial-gradient(circle calc(var(--ku) * .1) at calc(var(--ku) * .26) calc(var(--ku) * .26), #d5d9e2 0 30%, #4b505c 70%, transparent 74%),
+    radial-gradient(circle calc(var(--ku) * .1) at calc(100% - var(--ku) * .26) calc(var(--ku) * .26), #d5d9e2 0 30%, #4b505c 70%, transparent 74%),
+    radial-gradient(circle calc(var(--ku) * .1) at calc(var(--ku) * .26) calc(100% - var(--ku) * .26), #d5d9e2 0 30%, #4b505c 70%, transparent 74%),
+    radial-gradient(circle calc(var(--ku) * .1) at calc(100% - var(--ku) * .26) calc(100% - var(--ku) * .26), #d5d9e2 0 30%, #4b505c 70%, transparent 74%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, rgba(0,0,0,.03) 1px 3px),
+    linear-gradient(160deg, color-mix(in srgb, var(--case) 84%, white), var(--case) 55%);
   border: 1px solid var(--case-edge);
   box-shadow:
     0 calc(var(--ku) * 0.22) 0 color-mix(in srgb, var(--case) 70%, black),
@@ -44,20 +51,33 @@
 .key[data-t='a'] { --kc: var(--alpha); }
 .key[data-t='m'] { --kc: var(--mod); }
 .key[data-t='x'] { --kc: var(--accentk); }
+/* Sculpted cap: the element is the sloped skirt (darker, lit from above); ::before is the dished top face with PBT grain;
+   ::after is the specular sheen along the cap's top edge. The legend sits on the top face, not the skirt. */
 .key .cap {
-  position: relative; display: grid; place-items: center; width: 100%; height: 100%;
-  border-radius: calc(var(--ku) * 0.17); font-family: var(--font-body); font-weight: 700; font-size: calc(var(--ku) * 0.27); line-height: 1;
-  color: var(--legend); text-shadow: 0 0 calc(var(--ku) * .3) hsl(var(--gh) 100% 65% / calc(var(--ga) * .9));
-  background:
-    radial-gradient(120% 90% at 30% 0%, rgba(255,255,255,.2), transparent 55%),
-    linear-gradient(170deg, color-mix(in srgb, var(--kc) 88%, white), var(--kc));
+  position: relative; isolation: isolate; display: grid; place-items: center; width: 100%; height: 100%;
+  padding-bottom: calc(var(--ku) * 0.11);
+  border-radius: calc(var(--ku) * 0.15); font-family: var(--font-body); font-weight: 700; font-size: calc(var(--ku) * 0.27); line-height: 1;
+  color: var(--legend); text-shadow: 0 1px 0 rgba(0,0,0,.35), 0 0 calc(var(--ku) * .28) hsl(var(--gh) 100% 65% / calc(var(--ga) * .9));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--kc) 78%, white) 0%, color-mix(in srgb, var(--kc) 70%, black) 100%);
   box-shadow:
-    0 calc(var(--ku) * 0.075) 0 color-mix(in srgb, var(--kc) 55%, black),
-    0 calc(var(--ku) * 0.14) calc(var(--ku) * 0.2) rgba(0,0,0,.45),
+    0 calc(var(--ku) * 0.07) 0 color-mix(in srgb, var(--kc) 30%, black),
+    0 calc(var(--ku) * 0.16) calc(var(--ku) * 0.2) rgba(0,0,0,.55),
     0 0 calc(var(--ku) * 0.5) calc(var(--ku) * 0.02) hsl(var(--gh) 100% 58% / calc(var(--ga) * .85)),
-    inset 0 1px 0 rgba(255,255,255,.24);
+    inset 0 0 0 1px rgba(0,0,0,.3);
   transform: translateY(0);
   transition: transform 150ms var(--ease), filter 200ms, box-shadow 200ms;
+}
+.key .cap::before {
+  content: ''; position: absolute; z-index: -1; inset: 6% 9% 17% 9%; border-radius: calc(var(--ku) * 0.115);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, rgba(0,0,0,.26) 0%, rgba(0,0,0,.04) 30%, rgba(255,255,255,.05) 62%, rgba(255,255,255,.2) 100%),
+    color-mix(in srgb, var(--kc) 92%, white);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.3), inset 0 -2px 3px rgba(0,0,0,.28), 0 0 0 1px rgba(0,0,0,.28);
+}
+.key .cap::after {
+  content: ''; position: absolute; z-index: -1; inset: 8% 15% auto 15%; height: 24%; border-radius: calc(var(--ku) * 0.1);
+  background: linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,0)); pointer-events: none;
 }
 .key .cap small { font-size: .8em; opacity: .9; }
 .key:hover { z-index: 6; }

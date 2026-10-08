@@ -43,10 +43,11 @@ export function createKeyboard(opts = {}) {
     keyEl.classList.add('down');
     if (board.dataset.fx === 'reactive') { keyEl.classList.remove('lit'); void keyEl.offsetWidth; keyEl.classList.add('lit'); }
     if (readout) readout.textContent = keyEl.dataset.name;
-    if (sound) playSwitch(cfg.switchType);
+    if (sound) playSwitch(cfg.switchType, snd(keyEl));
     cfg.onKey?.(keyEl.dataset.name);
     pressedTimers.set(keyEl, setTimeout(() => release(keyEl), 130));
   }
+  const snd = (el) => ({ width: parseFloat(el.style.getPropertyValue('--w')) || 1, plate: cfg.plate, release: true });
   function release(keyEl) { keyEl.classList.remove('down'); }
   function holdRelease(keyEl) { clearTimeout(pressedTimers.get(keyEl)); pressedTimers.set(keyEl, setTimeout(() => release(keyEl), 70)); }
 
@@ -94,7 +95,7 @@ export function createKeyboard(opts = {}) {
       k.classList.add('down');
       if (board.dataset.fx === 'reactive') { k.classList.remove('lit'); void k.offsetWidth; k.classList.add('lit'); }
       if (readout) readout.textContent = k.dataset.name;
-      playSwitch(cfg.switchType);
+      playSwitch(cfg.switchType, snd(k));
     });
     board.addEventListener('keyup', (e) => { const k = wrap.querySelector(`.key[data-code="${CSS.escape(e.code)}"]`); if (k) holdRelease(k); });
   }
@@ -139,7 +140,7 @@ export function createKeyboard(opts = {}) {
       const k = wrap.querySelector(`.key[data-code="${CSS.escape(e.code)}"]`);
       if (!k) return;
       e.preventDefault(); if (e.repeat) return;
-      clearTimeout(pressedTimers.get(k)); k.classList.add('down'); playSwitch(cfg.switchType);
+      clearTimeout(pressedTimers.get(k)); k.classList.add('down'); playSwitch(cfg.switchType, snd(k));
       if (readout) readout.textContent = k.dataset.name;
     });
     board.addEventListener('keyup', (e) => { const k = wrap.querySelector(`.key[data-code="${CSS.escape(e.code)}"]`); if (k) holdRelease(k); });

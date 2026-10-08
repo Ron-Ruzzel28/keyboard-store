@@ -63,20 +63,51 @@ export function artisanSVG({ theme = 'galaxy', hue } = {}) {
     <rect x="58" y="44" width="104" height="104" rx="22" fill="none" stroke="#ffffff33"/></svg>`;
 }
 
+// Isometric MX-style switch: smoky translucent housing, coloured cross stem, visible coil spring, metal pins and an
+// RGB glow underneath. Left/right faces are drawn flat and skewed into place, so every part lines up exactly.
 export function switchSVG({ switchType = 'linear', hue = 190 } = {}) {
   const s = SWITCH_TYPES[switchType] || SWITCH_TYPES.linear;
   const id = uid('s');
+  const top = (z) => `matrix(.6235 .36 -.6235 .36 110 ${34 - z})`;
+  const cross = 'M40 22h20v18h18v20h-18v18h-20v-18h-18v-20h18z';
+  const coil = (cx, rx, n = 6) => Array.from({ length: n }, (_, i) => `<ellipse cx="${cx}" cy="${42 + i * 4.2}" rx="${rx}" ry="2.4" fill="none" stroke="#d3d8e3" stroke-width="1.7"/>`).join('');
+  const extra = {
+    clicky: '<rect x="20" y="22" width="8" height="18" rx="2" fill="#f4f4f7"/>',
+    silent: '<rect x="30" y="35" width="40" height="6" rx="2" fill="#15171d"/>',
+    magnetic: '<rect x="44" y="28" width="12" height="11" rx="1" fill="#c9cdd8"/><rect x="44" y="32" width="12" height="3" fill="#d6a43b"/>',
+  }[switchType] || '';
+  const stemLayers = Array.from({ length: 7 }, (_, k) => `<g transform="${top(k * 2)}"><path d="${cross}" fill="${s.color}" stroke="${s.color}" stroke-width="3" stroke-linejoin="round" style="filter:brightness(${0.52 + k * 0.03})"/></g>`).join('');
   return `<svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(s.name)} switch preview"><defs>
-    <linearGradient id="${id}h" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b4152"/><stop offset="1" stop-color="#181b25"/></linearGradient>
-    <radialGradient id="${id}g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="hsl(${hue} 100% 60%)" stop-opacity=".8"/><stop offset="1" stop-color="hsl(${hue} 100% 60%)" stop-opacity="0"/></radialGradient></defs>
-    <circle cx="110" cy="110" r="100" fill="url(#${id}g)" opacity=".5"/>
-    <rect x="42" y="50" width="136" height="136" rx="22" fill="#000" opacity=".5" transform="translate(0 8)"/>
-    <rect x="42" y="42" width="136" height="136" rx="22" fill="url(#${id}h)" stroke="#ffffff22"/>
-    <rect x="52" y="52" width="116" height="116" rx="14" fill="#10131b" stroke="#ffffff10"/>
-    <rect x="92" y="62" width="36" height="96" rx="8" fill="${s.color}"/><rect x="62" y="92" width="96" height="36" rx="8" fill="${s.color}"/>
-    <rect x="98" y="68" width="24" height="84" rx="5" fill="#fff" opacity=".18"/><rect x="68" y="98" width="84" height="24" rx="5" fill="#fff" opacity=".12"/>
-    <circle cx="110" cy="110" r="9" fill="#0b0d13" stroke="#ffffff30"/>
-    <rect x="94" y="30" width="32" height="14" rx="5" fill="#2a2f3d"/><rect x="94" y="176" width="32" height="12" rx="5" fill="#2a2f3d"/></svg>`;
+    <radialGradient id="${id}g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="hsl(${hue} 100% 60%)" stop-opacity=".75"/><stop offset="1" stop-color="hsl(${hue} 100% 60%)" stop-opacity="0"/></radialGradient>
+    <linearGradient id="${id}t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a5163"/><stop offset=".55" stop-color="#262b38"/><stop offset="1" stop-color="#171a23"/></linearGradient>
+    <linearGradient id="${id}f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset=".5" stop-color="#9aa3b8" stop-opacity=".1"/><stop offset="1" stop-color="hsl(${hue} 100% 65%)" stop-opacity=".3"/></linearGradient>
+    <linearGradient id="${id}s" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${s.color}" style="stop-color:${s.color}"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></linearGradient>
+    <linearGradient id="${id}m" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d93a1"/><stop offset=".45" stop-color="#eef0f5"/><stop offset="1" stop-color="#7b8190"/></linearGradient>
+    <filter id="${id}b" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7"/></filter></defs>
+    <circle cx="110" cy="130" r="98" fill="url(#${id}g)" opacity=".55"/>
+    <ellipse cx="114" cy="184" rx="68" ry="13" fill="#000" opacity=".55" filter="url(#${id}b)"/>
+    <rect x="78" y="160" width="7" height="27" rx="2" fill="url(#${id}m)"/><rect x="138" y="162" width="7" height="25" rx="2" fill="url(#${id}m)"/>
+    <ellipse cx="110" cy="178" rx="9" ry="5" fill="#1d212b"/>
+    <g transform="matrix(.6235 .36 0 1 47.6 70)">
+      <rect width="100" height="70" fill="url(#${id}f)"/><rect x="5" y="4" width="90" height="62" rx="4" fill="#07090e" opacity=".55"/>
+      <rect x="30" y="6" width="40" height="36" rx="3" fill="url(#${id}s)" style="filter:brightness(.92)"/>${extra}
+      ${coil(50, 17)}<rect x="0" y="63" width="100" height="7" fill="#1b1f29"/><rect width="100" height="70" fill="none" stroke="#fff" stroke-opacity=".28"/>
+      <rect x="0" y="0" width="100" height="3" fill="#fff" opacity=".25"/>
+    </g>
+    <g transform="matrix(.6235 -.36 0 1 110 106)">
+      <rect width="100" height="70" fill="url(#${id}f)" style="filter:brightness(.62)"/><rect x="5" y="4" width="90" height="62" rx="4" fill="#05060a" opacity=".6"/>
+      <rect x="32" y="6" width="36" height="36" rx="3" fill="${s.color}" style="filter:brightness(.55)"/>
+      ${coil(50, 15)}<rect x="0" y="63" width="100" height="7" fill="#12151c"/><rect width="100" height="70" fill="none" stroke="#fff" stroke-opacity=".16"/>
+      <rect x="0" y="0" width="100" height="3" fill="#fff" opacity=".12"/>
+    </g>
+    <path d="M110 106V176" stroke="#fff" stroke-opacity=".45" stroke-width="1.2"/>
+    <g transform="${top(0)}"><rect width="100" height="100" rx="9" fill="url(#${id}t)" stroke="#fff" stroke-opacity=".3"/>
+      <rect x="13" y="13" width="74" height="74" rx="6" fill="#090b10" stroke="#fff" stroke-opacity=".1"/>
+      <rect x="1.5" y="1.5" width="97" height="97" rx="8" fill="none" stroke="#fff" stroke-opacity=".12"/></g>
+    ${stemLayers}
+    <g transform="${top(14)}"><path d="${cross}" fill="${s.color}" stroke="${s.color}" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M44 25h12v21h21v8H44z" fill="#fff" opacity=".22"/><path d="${cross}" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width=".8"/></g>
+  </svg>`;
 }
 
 export function artSVG(img = {}, opts = {}) {

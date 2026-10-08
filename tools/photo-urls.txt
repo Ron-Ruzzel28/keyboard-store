@@ -1,56 +1,7 @@
-# Product photo list for tools/fetch-photos.mjs
-# Format:  <product-id> <direct image URL> [source / credit]
-# Right-click an image on the product page -> Copy image address, then paste it after the id.
-# Delete the leading # on a line once you add its URL.
-
-# ---- keyboards ----
-keychron-q1-pro (https://tbnws.hgodo.com/wordpress/keychorn/event/230324/products_thumb_q1pro_1.png) Keychron Q1 Pro
-keychron-q2 (https://down-my.img.susercontent.com/file/my-11134201-7ras9-m7jerevc6zbc0b) Keychron Q2
-keychron-q3-pro (https://www.maxgaming.fi/bilder/artiklar/zoom/28694_1.jpg?m=1699346204) Keychron Q3 Pro
-keychron-v1 (https://shelter.pl/cdn/shop/files/V1-D.jpg?v=1762341473) Keychron V1
-keychron-k2 (https://mks.blr1.cdn.digitaloceanspaces.com/uploads/2021/03/K2-LED_RGB-jpeg.webp) Keychron K2
-wooting-60he (https://cdn.mos.cms.futurecdn.net/bkBD85JxjPqGMdHyxw3YWj.jpg) Wooting 60HE
-wooting-80he (https://c1.neweggimages.com/ProductImage/AZB2S2507310G9Q4VFD.jpg) Wooting 80HE
-nuphy-air75-v2 (https://down-my.img.susercontent.com/file/cn-11134207-7r98o-lnktscuhsl231b) NuPhy Air75 V2
-akko-5075b-plus (https://cf.shopee.vn/file/vn-11134201-23030-91n9kycpqfovc4) Akko 5075B Plus
-monsgeek-m1 (https://monsgeek.eu/cdn/shop/files/M1-DIY-Kit-Banner-1.jpg?v=1695799636&width=2160) MonsGeek M1
-ducky-one-3-tkl (https://pcbox.vtexassets.com/arquivos/ids/2026598-853-853/DKON2187ST-RESPD_GAL_1.jpg?v=638545290203700000) Ducky One 3 TKL
-varmilo-va87m (https://cdn.asaxiy.uz/asaxiy-content/product/items/desktop/e4da3b7fbbce2345d7772b0674a318d52022080511590420633bGRVMTtHIT.jpg.webp) Varmilo VA87M
-leopold-fc980m (https://www.u-buy.com.au/productimg/?image=aHR0cHM6Ly9pbWFnZXMtbmEuc3NsLWltYWdlcy1hbWF6b24uY29tL2ltYWdlcy9JLzYxSWc2RVpjNVFMLl9TUzQwMF8uanBn.jpg) Leopold FC980M
-hhkb-professional-hybrid (https://images-na.ssl-images-amazon.com/images/I/81N5-Zp%2B7EL.jpg) HHKB Professional Hybrid Type-S
-realforce-r3 (https://www.realforce.co.jp/en/products/discontinued/R3HB13/index.html) Realforce R3
-glorious-gmmk-pro (https://microless.com/cdn/product_description/2468961_1675333363.jpg) Glorious GMMK Pro
-razer-huntsman-v3-pro-tkl (https://www.pbtech.co.nz/imgprod/K/E/KEYRAZ89636__1.jpg) Razer Huntsman V3 Pro TKL
-logitech-g-pro-x-tkl (https://techpointperu.com/image/cache/catalog/2025/920-013131-800x800.jpg) Logitech G Pro X TKL
-epomaker-th80-pro (https://static-data.manualslib.tech/product-images/be8/559014/epomaker-th80-pro-klavye.jpg) Epomaker TH80 Pro
-qk65-v2 (https://media.karousell.com/media/photos/products/2024/2/28/in_stock_qk65_v2_by_qwertykey__1709107690_7f5e919f_progressive.jpg) QwertyKeys QK65 V2
-lemokey-l3 (https://cdn.mos.cms.futurecdn.net/vk7gdNbniGx5X6SdSfQapk.jpg) Lemokey L3
-keychron-q5 (https://cdn.shopify.com/s/files/1/0608/5145/4022/files/Keychron-Q5-1_ea7b280c-75f7-4dc8-8275-1b7a9c077674.jpg?v=1728180602) Keychron Q5
-rk61 (https://mkb.gg/cdn/shop/products/643e6c50b5c6d_1681812560.jpg?v=1681813062) Royal Kludge RK61
-ajazz-ak820 (https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/104/MTA-182444693/ajazz_ajazz_ak820_75-_v1_mechanical_keyboard_gaming_hotswappable_with_gasket_mount_full03_uoztvrkl.jpg) Ajazz AK820
----- keycaps ----
-gmk-laser (https://elgueymk.com/static/19597082f4ecaaccaaf32c893067f5e3/e8d26/bb1d4a23-f7eb-4b90-b611-757e530b7465_think-laser-switches.jpg) GMK Laser
-gmk-olivia-plus (https://cdn.shopify.com/s/files/1/2772/6534/products/GMK_Olivia_Dark_1800_1200x1200.jpg?v=1575149106) GMK Olivia++
-pbtfans-bow (https://www.mechmods.co.uk/cdn/shop/products/SimpleBaseBoW.webp?v=1704848861&width=2000) PBTfans BOW
-pbtfans-blush (https://i.shgcdn.com/550749c7-d6dd-471a-97d1-68a201e4211b/-/format/auto/-/preview/3000x3000/-/quality/best/) PBTfans Blush
-akko-black-gold (https://m.media-amazon.com/images/S/aplus-media-library-service-media/334bd67b-2b56-4c28-8899-99ce09136c39.__CR0%2C0%2C970%2C600_PT0_SX970_V1___.jpg) Akko Black & Gold
-akko-cinnamoroll (https://akkogear.eu/cdn/shop/files/Akko-3108RF-V3-Cinnamoroll-Detail-1500-1500_6.jpg?v=1763033891&width=1500) Akko Cinnamoroll
-akko-world-tour-tokyo (https://uae.microless.com/cdn/category_files/d454845fb3815dea8c81364009a8208c.jpg) Akko World Tour Tokyo
-ducky-joker (https://microless.com/cdn/products/b2113972f7c00d7699925b74f8647e49-hi.jpg) Ducky Joker
-drop-mt3-susuwatari (https://massdrop-s3.imgix.net/product-images/drop-matt3o-mt3-susuwatari-custom-keycap-set/FP/L3kYxPd8QgSAcL5QXlP7_CB5A1158-copy.jpg?auto=format&bg=f0f0f0&chromasub=444&dpr=2&fit=fill&fm=jpg&h=333&q=35&w=500) Drop MT3 Susuwatari
-varmilo-sakura (https://mechanicalkeyboards.com/cdn/shop/files/15379_6387d67c87cec_VEA108-Sakura.jpg?v=1707272107&width=1500) Varmilo Sakura
-epomaker-themed (https://epomaker.de/cdn/shop/products/203A9321.jpg?v=1703137679) Epomaker Themed PBT
-dwarf-factory-artisan (https://cdn.keycap-archivist.com/keycaps/720/45593348.jpg) Dwarf Factory Artisan
----- switches ----
-gateron-oil-king (https://www.gateron.com/u_file/2311/10/file/GATERONOilkingswitch-KS-8A10B055NW-D53.pdf) Gateron Oil King
-gateron-ink-black-v2 (https://landingpad.shop/cdn/shop/products/gat-ink-black_fd16dba2-1e2b-4f8a-9fcf-f3d3492af335.png?v=1752843828&width=1066) Gateron Ink Black V2
-cherry-mx-red (https://goblintechkeys.com/cdn/shop/products/cherry-mx-red-245465.webp?v=1698830892&width=1445) Cherry MX Red
-cherry-mx-brown (https://m.media-amazon.com/images/I/61bz2WZIe6L.jpg) Cherry MX Brown
-kailh-box-white (https://goblintechkeys.com/cdn/shop/products/kailh-box-switches-675595.jpg?v=1701096839) Kailh Box White
-kailh-speed-silver (https://boutique-keycaps.com/cdn/shop/products/Kailh-speed-silver_600x.jpg?v=1644781008) Kailh Speed Silver
-akko-cream-yellow (https://www.google.com/search?tbm=isch&q=Akko+CS+Cream+Yellow+switch) Akko CS Cream Yellow
-ttc-gold-pink (https://www.melgeek.com/cdn/shop/files/GoldPink.jpg?v=1686819704&width=2048) TTC Gold Pink
-gazzew-boba-u4t (https://www.google.com/search?tbm=isch&q=Gazzew+Boba+U4T+switch) Gazzew Boba U4T
-zealpc-tealios-v2 (https://divinikey.com/cdn/shop/products/zeal-tealios-v2-linear-switches-243108.jpg?v=1636767928&width=1500) ZealPC Tealios V2
+leopold-fc980m (https://www.harum.io/cdn/shop/products/K1_ad705486-cf49-4dfe-9cf1-0b743aaf7944.jpg?v=1586831971) Leopold FC980M
+glorious-gmmk-pro (https://pisces.bbystatic.com/image2/BestBuy_US/images/products/f93cba01-01b8-4a55-8394-7f91025ff2e9.png%3BmaxHeight%3D1920%3BmaxWidth%3D900?format=webp) Glorious GMMK Pro
+razer-huntsman-v3-pro-tkl (https://i5.walmartimages.com/seo/Razer-Huntsman-V3-Pro-TKL-Tenkeyless-Analog-Optical-Esports-Keyboard-Snap-Tap-RGB-Chroma-Black_f887392f-5709-4493-b392-c8c220b0193f.3e446277a20c521e1b8a45d597d0c948.png?odnBg=FFFFFF&odnHeight=768&odnWidth=768) Razer Huntsman V3 Pro TKL
+cherry-mx-red (https://cdn.mauser.pt/large/product_image/2024/337/ba242e2015a33f81f9d92715e0c7ac72_010-1713.webp) Cherry MX Red
+kailh-box-white (https://epomaker.com/cdn/shop/products/KailhBoxWhite-6.jpg?v=1636450873&width=1946) Kailh Box White
 outemu-silent-peach (https://goblintechkeys.com/cdn/shop/products/outemu-silent-peach-v2-switches-182498.jpg?v=1699688176) Outemu Silent Peach
-wooting-lekker (https://mechanicalkeyboards.com/cdn/shop/files/26727-HUA1K-Wooting-Lekker-Tikken-Magnetic-Switch.jpg?v=1766071805&width=1066) Wooting Lekker
+gateron-oil-king (https://res.cloudinary.com/kineticlabs/image/upload/q_auto/c_fit%2Cw_590/f_auto/v1/api-images/products/oil-kings/1-gateron-oil-king-switches_qx4mnl) Gateron Oil King
