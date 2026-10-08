@@ -1,148 +1,101 @@
-// Sample catalogue. Swap this file (and api.js) for a real API/database later:
-// every product is plain JSON and `image` is a descriptor rendered by components/ProductArt.js.
+// Sample catalogue built from real brands/models. PRICES AND SPECS ARE ILLUSTRATIVE TEST DATA, not official.
+// Photos: put a file in assets/products/ and register it in photos.js (see assets/products/README.md). Otherwise procedural SVG art is shown.
+// Swap this file (and api.js) for a real API/database later.
+import { PHOTOS } from './photos.js';
+const img = (id, o) => ({ ...o, ...(PHOTOS[id] ? { src: `assets/products/${PHOTOS[id]}` } : {}) });
+const base = (cat) => ({ category: cat, rating: 4.7, reviews: 100, featured: false, new: false, bestSeller: false });
 const colors = (list) => ({ type: 'Color', options: list.map(([name, hex]) => ({ name, hex, price: 0 })) });
-const switchVar = { type: 'Switch', options: [{ name: 'Linear', price: 0 }, { name: 'Tactile', price: 0 }, { name: 'Clicky', price: 0 }] };
+const switchVar = (names) => ({ type: 'Switch', options: names.map((n, i) => ({ name: n, price: 0 })) });
 const kit = { type: 'Build', options: [{ name: 'Assembled', price: 0 }, { name: 'Barebones kit', price: -1500 }] };
 
-const KB = (o) => ({ category: 'keyboards', rating: 4.7, reviews: 100, featured: false, new: false, bestSeller: false, ...o });
-const KC = (o) => ({ category: 'keycaps', rating: 4.7, reviews: 100, featured: false, new: false, bestSeller: false, ...o });
-const SW = (o) => ({ category: 'switches', rating: 4.7, reviews: 100, featured: false, new: false, bestSeller: false, ...o });
-
-export const PRODUCTS = [
-  KB({
-    id: 'nova-65', name: 'Nova 65 Mechanical Keyboard', layout: '65', material: 'Aluminum', switchType: 'Linear',
-    description: 'A gasket-mounted 65% in CNC aluminum with a tri-mode wireless PCB, hot-swap sockets and pre-lubed stabilizers. Quiet, balanced and ready out of the box.',
-    short: 'Gasket-mount 65% with tri-mode wireless', price: 6490, rating: 4.8, reviews: 214, stock: 38, featured: true, bestSeller: true, addedAt: 20,
-    image: { kind: 'keyboard', layout: '65', hue: 190, theme: 'stealth', case: 'black' },
-    variants: [colors([['Obsidian', '#14161c'], ['Arctic', '#e6e9f0'], ['Violet', '#4a2cb3'], ['Ocean', '#1b4fd6']]), switchVar, kit],
-    specifications: { Layout: '65% · 68 keys', 'Case material': 'CNC aluminum', 'Plate material': 'FR4', PCB: 'Hot-swap, south-facing RGB, 1000 Hz', 'Mounting style': 'Gasket mount', Connectivity: 'USB-C · Bluetooth 5.1 · 2.4 GHz', Battery: '4000 mAh (up to 90 h, RGB off)', Dimensions: '325 × 118 × 28 mm', Weight: '1.62 kg' },
-  }),
-  KB({
-    id: 'aurora-75-pro', name: 'Aurora 75 Pro', layout: '75', material: 'Aluminum', switchType: 'Tactile',
-    description: 'A 75% flagship with a rotary knob, per-key aurora lighting and a brass-weighted base. Foam-dampened for a deep, creamy sound.',
-    short: '75% with knob, brass weight and aurora RGB', price: 8990, rating: 4.9, reviews: 167, stock: 14, featured: true, new: true, addedAt: 29,
-    image: { kind: 'keyboard', layout: '75', hue: 268, theme: 'aurora', case: 'purple' },
-    variants: [colors([['Twilight', '#4a2cb3'], ['Obsidian', '#14161c'], ['Silver', '#a4abb8']]), switchVar, kit],
-    specifications: { Layout: '75% · 84 keys + knob', 'Case material': 'CNC aluminum, brass weight', 'Plate material': 'Polycarbonate', PCB: 'Hot-swap, per-key RGB, VIA/QMK', 'Mounting style': 'Gasket mount', Connectivity: 'USB-C · Bluetooth 5.1 · 2.4 GHz', Battery: '5000 mAh', Dimensions: '328 × 138 × 31 mm', Weight: '2.05 kg' },
-  }),
-  KB({
-    id: 'titan-tkl', name: 'Titan TKL', layout: 'tkl', material: 'Aluminum', switchType: 'Tactile',
-    description: 'A heavyweight tenkeyless built like a tool: full aluminum case, steel plate and a wired-only PCB with zero latency.',
-    short: 'Tenkeyless, full aluminum, wired', price: 7990, rating: 4.7, reviews: 142, stock: 22, bestSeller: true, addedAt: 12,
-    image: { kind: 'keyboard', layout: 'tkl', hue: 355, theme: 'samurai', case: 'black' },
-    variants: [colors([['Graphite', '#14161c'], ['Silver', '#a4abb8']]), switchVar, kit],
-    specifications: { Layout: 'TKL · 87 keys', 'Case material': 'Anodized aluminum', 'Plate material': 'Brass', PCB: 'Hot-swap, USB polling 8000 Hz', 'Mounting style': 'Top mount', Connectivity: 'USB-C (detachable)', Battery: 'None (wired)', Dimensions: '358 × 140 × 34 mm', Weight: '2.4 kg' },
-  }),
-  KB({
-    id: 'pulse-60', name: 'Pulse 60', layout: '60', material: 'Polycarbonate', switchType: 'Linear',
-    description: 'A translucent polycarbonate 60% that turns every lighting effect into a glowing case. Small footprint, big personality.',
-    short: 'Translucent 60% with glowing case', price: 3990, rating: 4.6, reviews: 308, stock: 61, bestSeller: true, addedAt: 8,
-    image: { kind: 'keyboard', layout: '60', hue: 218, theme: 'snow', case: 'transparent' },
-    variants: [colors([['Frost', '#b9c4dd'], ['Smoke', '#2a2e3a']]), switchVar, kit],
-    specifications: { Layout: '60% · 61 keys', 'Case material': 'Polycarbonate', 'Plate material': 'Polycarbonate', PCB: 'Hot-swap, south-facing RGB', 'Mounting style': 'Tray mount', Connectivity: 'USB-C · Bluetooth 5.0', Battery: '3000 mAh', Dimensions: '294 × 104 × 24 mm', Weight: '0.78 kg' },
-  }),
-  KB({
-    id: 'eclipse-96', name: 'Eclipse 96', layout: '96', material: 'Aluminum', switchType: 'Linear',
-    description: 'All the keys of a full-size in a footprint that leaves room for your mouse. Eclipse pairs a solid aluminum shell with a gasket plate and sound-tuned foam.',
-    short: '96% compact full-size with numpad', price: 9490, rating: 4.8, reviews: 93, stock: 9, new: true, addedAt: 27,
-    image: { kind: 'keyboard', layout: '96', hue: 28, theme: 'cyberpunk', case: 'black' },
-    variants: [colors([['Eclipse Black', '#14161c'], ['Moon White', '#e6e9f0']]), switchVar, kit],
-    specifications: { Layout: '96% · 101 keys', 'Case material': 'CNC aluminum', 'Plate material': 'FR4', PCB: 'Hot-swap, per-key RGB', 'Mounting style': 'Gasket mount', Connectivity: 'USB-C · Bluetooth 5.1 · 2.4 GHz', Battery: '6000 mAh', Dimensions: '383 × 135 × 30 mm', Weight: '2.2 kg' },
-  }),
-  KB({
-    id: 'atlas-full', name: 'Atlas Full Size', layout: 'full', material: 'Aluminum', switchType: 'Silent',
-    description: 'The complete 104-key experience for accountants, analysts and anyone who lives in spreadsheets. Silent switches and a dampened case keep the office peaceful.',
-    short: 'Full-size, silent switches, dampened case', price: 10990, rating: 4.7, reviews: 71, stock: 17, addedAt: 3,
-    image: { kind: 'keyboard', layout: 'full', hue: 145, theme: 'retro', case: 'silver' },
-    variants: [colors([['Silver', '#a4abb8'], ['Black', '#14161c']]), { type: 'Switch', options: [{ name: 'Silent', price: 0 }, { name: 'Linear', price: 0 }, { name: 'Tactile', price: 0 }] }, kit],
-    specifications: { Layout: 'Full size · 104 keys', 'Case material': 'Aluminum', 'Plate material': 'FR4', PCB: 'Hot-swap, white backlight', 'Mounting style': 'Gasket mount', Connectivity: 'USB-C · Bluetooth 5.1', Battery: '8000 mAh', Dimensions: '440 × 135 × 32 mm', Weight: '2.6 kg' },
-  }),
-
-  KC({
-    id: 'cyberpunk-pbt', name: 'Cyberpunk PBT Keycap Set', material: 'PBT', theme: 'cyberpunk',
-    description: 'Neon legends over a violet base. Thick PBT with a dye-sublimated finish that will not shine or fade.',
-    short: '140-key dye-sub PBT in violet and neon', price: 2490, rating: 4.8, reviews: 189, stock: 44, featured: true, bestSeller: true, addedAt: 18,
-    image: { kind: 'keycaps', theme: 'cyberpunk' },
-    variants: [{ type: 'Kit', options: [{ name: 'Base kit (140)', price: 0 }, { name: 'Base + Novelties (160)', price: 600 }] }],
-    specifications: { Material: 'PBT', Profile: 'Cherry', Compatibility: 'MX-style stems · 60%–Full size · ISO & ANSI', 'Number of keys': '140', 'Manufacturing method': 'Dye-sublimation', Thickness: '1.5 mm' },
-  }),
-  KC({
-    id: 'midnight-samurai', name: 'Midnight Samurai Keycaps', material: 'PBT', theme: 'samurai',
-    description: 'Ink-black double-shot PBT with a single vermilion accent on the modifiers. Restraint, executed well.',
-    short: 'Double-shot PBT, black with red accents', price: 2890, rating: 4.9, reviews: 156, stock: 31, featured: true, addedAt: 22,
-    image: { kind: 'keycaps', theme: 'samurai' },
-    variants: [{ type: 'Kit', options: [{ name: 'Base kit (135)', price: 0 }, { name: 'Base + Numpad (151)', price: 500 }] }],
-    specifications: { Material: 'PBT', Profile: 'OEM', Compatibility: 'MX-style stems · ANSI', 'Number of keys': '135', 'Manufacturing method': 'Double-shot injection', Thickness: '1.6 mm' },
-  }),
-  KC({
-    id: 'aurora-gradient', name: 'Aurora Gradient Keycaps', material: 'ABS', theme: 'aurora',
-    description: 'A gradient that flows from deep teal to northern-lights green across the whole board. Shine-through legends make it glow with RGB.',
-    short: 'Double-shot ABS gradient, shine-through', price: 3290, rating: 4.7, reviews: 84, stock: 19, new: true, featured: true, addedAt: 28,
-    image: { kind: 'keycaps', theme: 'aurora' },
-    variants: [{ type: 'Kit', options: [{ name: 'Base kit (130)', price: 0 }, { name: 'Base + Accents (150)', price: 700 }] }],
-    specifications: { Material: 'ABS', Profile: 'SA-low', Compatibility: 'MX-style stems · 60%–TKL', 'Number of keys': '130', 'Manufacturing method': 'Double-shot injection', Thickness: '1.4 mm' },
-  }),
-  KC({
-    id: 'retro-cream', name: 'Retro Cream Keycaps', material: 'ABS', theme: 'retro',
-    description: 'The warm beige of 1980s terminals with muted orange modifiers. Smooth ABS, and it will yellow beautifully with age.',
-    short: 'Beige ABS with terminal-style modifiers', price: 1790, rating: 4.6, reviews: 262, stock: 80, bestSeller: true, addedAt: 5,
-    image: { kind: 'keycaps', theme: 'retro' },
-    variants: [{ type: 'Kit', options: [{ name: 'Base kit (118)', price: 0 }, { name: 'Base + Numpad (134)', price: 400 }] }],
-    specifications: { Material: 'ABS', Profile: 'Cherry', Compatibility: 'MX-style stems · ANSI & ISO', 'Number of keys': '118', 'Manufacturing method': 'Double-shot injection', Thickness: '1.3 mm' },
-  }),
-  KC({
-    id: 'artisan-galaxy', name: 'Artisan Galaxy Keycap', material: 'Resin', theme: 'galaxy',
-    description: 'A hand-poured resin artisan with a suspended nebula and flecks of gold leaf. Every cap is unique. Limited run of 200.',
-    short: 'Hand-poured resin artisan, one of 200', price: 1490, rating: 5, reviews: 47, stock: 0, addedAt: 24,
-    image: { kind: 'artisan', theme: 'galaxy' },
-    variants: [{ type: 'Colorway', options: [{ name: 'Nebula', price: 0, hex: '#8b5cff' }, { name: 'Supernova', price: 0, hex: '#ff7a3d' }, { name: 'Aurora', price: 0, hex: '#3ee0a8' }] }],
-    specifications: { Material: 'Resin', Profile: 'Cherry (R4)', Compatibility: 'MX-style stems', 'Number of keys': '1 artisan', 'Manufacturing method': 'Hand-poured resin casting', Edition: 'Limited, 200 pieces' },
-  }),
-
-  SW({
-    id: 'frost-linear', name: 'Frost Linear Switch', switchType: 'Linear', theme: 'cyan',
-    description: 'A factory-lubed linear with a polished stem and a light 45 g spring. Smooth from the first millimeter to the bottom.',
-    short: 'Smooth 45 g linear, pre-lubed', price: 990, rating: 4.8, reviews: 341, stock: 120, featured: true, bestSeller: true, addedAt: 14,
-    image: { kind: 'switch', switchType: 'linear', hue: 190 },
-    variants: [{ type: 'Pack', options: [{ name: '35 pcs', price: -400 }, { name: '70 pcs', price: 0 }, { name: '110 pcs', price: 520 }] }],
-    specifications: { 'Switch type': 'Linear', 'Actuation force': '45 gf', 'Bottom-out force': '50 gf', 'Pre-travel': '2.0 mm', 'Total travel': '3.6 mm', 'Sound profile': 'Soft, mid-pitched thock', 'Factory lubrication': 'Yes, Krytox 205g0 on stem & rails' },
-  }),
-  SW({
-    id: 'ember-tactile', name: 'Ember Tactile Switch', switchType: 'Tactile', theme: 'orange',
-    description: 'A rounded tactile bump at the top of the stroke gives clear feedback without the harshness of older designs.',
-    short: 'Rounded tactile bump, 55 g', price: 1190, rating: 4.7, reviews: 229, stock: 96, addedAt: 11,
-    image: { kind: 'switch', switchType: 'tactile', hue: 28 },
-    variants: [{ type: 'Pack', options: [{ name: '35 pcs', price: -450 }, { name: '70 pcs', price: 0 }, { name: '110 pcs', price: 600 }] }],
-    specifications: { 'Switch type': 'Tactile', 'Actuation force': '55 gf', 'Bottom-out force': '62 gf', 'Pre-travel': '2.0 mm', 'Total travel': '3.8 mm', 'Sound profile': 'Warm, medium', 'Factory lubrication': 'Yes, light film on stem' },
-  }),
-  SW({
-    id: 'silent-night', name: 'Silent Night Switch', switchType: 'Silent', theme: 'purple',
-    description: 'Dampening pads at the top and bottom of the stroke take the clack out of every keystroke. Ideal for shared rooms.',
-    short: 'Dampened silent linear, 45 g', price: 1290, rating: 4.6, reviews: 175, stock: 74, addedAt: 9,
-    image: { kind: 'switch', switchType: 'silent', hue: 268 },
-    variants: [{ type: 'Pack', options: [{ name: '35 pcs', price: -480 }, { name: '70 pcs', price: 0 }, { name: '110 pcs', price: 640 }] }],
-    specifications: { 'Switch type': 'Silent linear', 'Actuation force': '45 gf', 'Bottom-out force': '52 gf', 'Pre-travel': '1.9 mm', 'Total travel': '3.8 mm', 'Sound profile': 'Near-silent, cushioned', 'Factory lubrication': 'Yes, dry film on slider' },
-  }),
-  SW({
-    id: 'crystal-clicky', name: 'Crystal Clicky Switch', switchType: 'Clicky', theme: 'blue',
-    description: 'A click-jacket mechanism gives a crisp, high-pitched click at actuation. Loud, bright, and unapologetically satisfying.',
-    short: 'Crisp click jacket, 50 g', price: 1090, rating: 4.5, reviews: 118, stock: 8, addedAt: 6,
-    image: { kind: 'switch', switchType: 'clicky', hue: 218 },
-    variants: [{ type: 'Pack', options: [{ name: '35 pcs', price: -420 }, { name: '70 pcs', price: 0 }, { name: '110 pcs', price: 560 }] }],
-    specifications: { 'Switch type': 'Clicky', 'Actuation force': '50 gf', 'Bottom-out force': '60 gf', 'Pre-travel': '2.2 mm', 'Total travel': '3.8 mm', 'Sound profile': 'Loud, high-pitched click', 'Factory lubrication': 'No, clean for clear clicks' },
-  }),
-  SW({
-    id: 'magnetic-pro', name: 'Magnetic Pro Switch', switchType: 'Magnetic', theme: 'cyan',
-    description: 'Hall Effect sensing with adjustable actuation from 0.1 to 4.0 mm and rapid trigger. Requires a compatible Hall Effect PCB.',
-    short: 'Hall Effect, adjustable 0.1–4.0 mm', price: 1690, rating: 4.9, reviews: 203, stock: 55, new: true, featured: true, addedAt: 30,
-    image: { kind: 'switch', switchType: 'magnetic', hue: 190 },
-    variants: [{ type: 'Pack', options: [{ name: '35 pcs', price: -600 }, { name: '70 pcs', price: 0 }, { name: '110 pcs', price: 800 }] }],
-    specifications: { 'Switch type': 'Magnetic (Hall Effect)', 'Actuation force': '40 gf', 'Bottom-out force': '45 gf', 'Pre-travel': '0.1–4.0 mm adjustable', 'Total travel': '4.0 mm', 'Sound profile': 'Smooth, neutral thock', 'Factory lubrication': 'Yes, full factory lube' },
-  }),
+// id, name, brand, layout, material, switch, price, rating, reviews, stock, flags, art[hue, theme, case], short, specs
+const KB_ROWS = [
+  ['keychron-q1-pro', 'Keychron Q1 Pro', 'Keychron', '75', 'Aluminum', 'Tactile', 11500, 4.8, 612, 38, 'fb', [190, 'stealth', 'silver'], 'Wireless 75% in full aluminum, gasket mount', { Connectivity: 'USB-C · Bluetooth 5.1', 'Plate material': 'Polycarbonate', 'Mounting style': 'Gasket mount', 'Hot-swap': 'Yes · 3/5-pin' }],
+  ['keychron-q2', 'Keychron Q2', 'Keychron', '65', 'Aluminum', 'Linear', 9200, 4.7, 540, 44, 'b', [218, 'stealth', 'blue'], 'Compact 65% with a double-gasket aluminum body', { Connectivity: 'USB-C (wired)', 'Plate material': 'Brass', 'Mounting style': 'Gasket mount', 'Hot-swap': 'Yes' }],
+  ['keychron-q3-pro', 'Keychron Q3 Pro', 'Keychron', 'tkl', 'Aluminum', 'Linear', 12400, 4.7, 288, 21, '', [268, 'stealth', 'black'], 'Wireless TKL, QMK/VIA, aluminum case', { Connectivity: 'USB-C · Bluetooth 5.1', 'Plate material': 'Polycarbonate', 'Mounting style': 'Double gasket', 'Hot-swap': 'Yes' }],
+  ['keychron-v1', 'Keychron V1', 'Keychron', '75', 'ABS', 'Linear', 5200, 4.6, 903, 90, 'b', [145, 'snow', 'white'], 'Budget 75% custom with knob and QMK', { Connectivity: 'USB-C (wired)', 'Plate material': 'PC', 'Mounting style': 'Gasket mount', 'Hot-swap': 'Yes' }],
+  ['keychron-k2', 'Keychron K2', 'Keychron', '75', 'ABS', 'Tactile', 4800, 4.5, 1210, 120, 'b', [28, 'stealth', 'black'], 'Wireless 75% for Mac and Windows', { Connectivity: 'USB-C · Bluetooth 5.1', 'Plate material': 'Steel', 'Mounting style': 'Tray mount', 'Hot-swap': 'Optional' }],
+  ['wooting-60he', 'Wooting 60HE', 'Wooting', '60', 'ABS', 'Magnetic', 11900, 4.9, 476, 15, 'fn', [190, 'stealth', 'black'], 'Hall Effect 60% with rapid trigger', { Connectivity: 'USB-C (wired)', 'Plate material': 'PC', 'Mounting style': 'Tray mount', 'Hot-swap': 'Yes · Lekker' }],
+  ['wooting-80he', 'Wooting 80HE', 'Wooting', 'tkl', 'ABS', 'Magnetic', 15900, 4.9, 219, 9, 'n', [218, 'stealth', 'black'], 'Hall Effect TKL, adjustable actuation', { Connectivity: 'USB-C (wired)', 'Plate material': 'PC', 'Mounting style': 'Tray mount', 'Hot-swap': 'Yes · Lekker' }],
+  ['nuphy-air75-v2', 'NuPhy Air75 V2', 'NuPhy', '75', 'ABS', 'Linear', 6900, 4.6, 701, 52, 'b', [268, 'snow', 'white'], 'Low-profile 75% wireless', { Connectivity: 'USB-C · Bluetooth 5.0 · 2.4 GHz', 'Plate material': 'Aluminum', 'Mounting style': 'Tray mount', 'Hot-swap': 'Yes · low-profile' }],
+  ['akko-5075b-plus', 'Akko 5075B Plus', 'Akko', '75', 'ABS', 'Linear', 5600, 4.6, 664, 77, 'b', [190, 'retro', 'white'], 'Tri-mode 75% with gasket mount', { Connectivity: 'USB-C · Bluetooth 5.0 · 2.4 GHz', 'Plate material': 'PC', 'Mounting style': 'Gasket mount', 'Hot-swap': 'Yes' }],
+  ['monsgeek-m1', 'MonsGeek M1', 'MonsGeek', '75', 'Aluminum', 'Linear', 7400, 4.7, 391, 33, '', [355, 'cyberpunk', 'purple'], 'Aluminum 75% enthusiast board with knob', { Connectivity: 'USB-C (wired)', 'Plate material': 'PC', 'Mounting style': 'Gasket mount', 'Hot-swap': 'Yes' }],
+  ['ducky-one-3-tkl', 'Ducky One 3 TKL', 'Ducky', 'tkl', 'ABS', 'Tactile', 7100, 4.7, 355, 41, 'b', [28, 'samurai', 'black'], 'Doubleshot PBT caps, hot-swap, QUACK mechanism', { Connectivity: 'USB-C (wired)', 'Plate material': 'PC', 'Mounting style': 'Gasket mount', 'Hot-swap': 'Yes' }],
+  ['varmilo-va87m', 'Varmilo VA87M', 'Varmilo', 'tkl', 'ABS', 'Tactile', 7800, 4.6, 242, 19, '', [355, 'retro', 'white'], 'Themed dye-sub PBT keycaps, typing-first TKL', { Connectivity: 'USB-C (wired)', 'Plate material': 'Steel', 'Mounting style': 'Tray mount', 'Hot-swap': 'No' }],
+  ['leopold-fc980m', 'Leopold FC980M', 'Leopold', 'full', 'ABS', 'Tactile', 7900, 4.7, 188, 24, '', [190, 'snow', 'silver'], 'Classic full-size with a PBT double-shot set', { Connectivity: 'USB-C (wired)', 'Plate material': 'Steel', 'Mounting style': 'Tray mount', 'Hot-swap': 'No' }],
+  ['hhkb-professional-hybrid', 'HHKB Professional Hybrid Type-S', 'HHKB', '60', 'ABS', 'Silent', 21900, 4.8, 305, 12, 'f', [145, 'snow', 'white'], 'Topre electro-capacitive minimalist 60%', { Connectivity: 'USB-C · Bluetooth 5.0', 'Plate material': 'Steel', 'Mounting style': 'Tray mount', 'Hot-swap': 'No · Topre' }],
+  ['realforce-r3', 'Realforce R3', 'Realforce', 'full', 'ABS', 'Silent', 18900, 4.8, 167, 8, '', [218, 'stealth', 'black'], 'Topre full-size with variable key weight', { Connectivity: 'USB-C · Bluetooth 5.0', 'Plate material': 'Steel', 'Mounting style': 'Tray mount', 'Hot-swap': 'No · Topre' }],
+  ['glorious-gmmk-pro', 'Glorious GMMK Pro', 'Glorious', '75', 'Aluminum', 'Linear', 10900, 4.6, 520, 26, '', [190, 'stealth', 'silver'], 'Gasket-mounted aluminum 75% with rotary knob', { Connectivity: 'USB-C (wired)', 'Plate material': 'Aluminum', 'Mounting style': 'Gasket mount', 'Hot-swap': 'Yes' }],
+  ['razer-huntsman-v3-pro-tkl', 'Razer Huntsman V3 Pro TKL', 'Razer', 'tkl', 'Aluminum', 'Magnetic', 12900, 4.7, 312, 17, 'n', [145, 'stealth', 'black'], 'Analog optical TKL with rapid trigger', { Connectivity: 'USB-C (wired)', 'Plate material': 'Aluminum', 'Mounting style': 'Tray mount', 'Hot-swap': 'No' }],
+  ['logitech-g-pro-x-tkl', 'Logitech G Pro X TKL', 'Logitech G', 'tkl', 'ABS', 'Linear', 9900, 4.6, 450, 36, 'b', [218, 'stealth', 'black'], 'Wireless esports TKL with swappable switches', { Connectivity: 'USB-C · Lightspeed 2.4 GHz', 'Plate material': 'Steel', 'Mounting style': 'Tray mount', 'Hot-swap': 'Yes' }],
+  ['epomaker-th80-pro', 'Epomaker TH80 Pro', 'Epomaker', '75', 'ABS', 'Linear', 4400, 4.5, 987, 110, 'b', [268, 'aurora', 'white'], 'Budget gasket-mount 75% with knob', { Connectivity: 'USB-C · Bluetooth 5.0 · 2.4 GHz', 'Plate material': 'PC', 'Mounting style': 'Gasket mount', 'Hot-swap': 'Yes' }],
+  ['qk65-v2', 'QwertyKeys QK65 V2', 'QwertyKeys', '65', 'Aluminum', 'Linear', 8800, 4.7, 134, 6, 'n', [28, 'stealth', 'silver'], 'Custom 65% kit, enthusiast classic', { Connectivity: 'USB-C (wired)', 'Plate material': 'Aluminum', 'Mounting style': 'Gasket mount', 'Hot-swap': 'Yes' }],
+  ['lemokey-l3', 'Lemokey L3', 'Lemokey', 'tkl', 'Aluminum', 'Linear', 11900, 4.6, 98, 14, 'n', [190, 'stealth', 'silver'], 'Wireless QMK board from Keychron', { Connectivity: 'USB-C · Bluetooth 5.1 · 2.4 GHz', 'Plate material': 'Polycarbonate', 'Mounting style': 'Gasket mount', 'Hot-swap': 'Yes' }],
+  ['keychron-q5', 'Keychron Q5', 'Keychron', '96', 'Aluminum', 'Linear', 13200, 4.7, 203, 18, '', [145, 'stealth', 'black'], '96% aluminum with knob and QMK', { Connectivity: 'USB-C (wired)', 'Plate material': 'Brass', 'Mounting style': 'Double gasket', 'Hot-swap': 'Yes' }],
+  ['rk61', 'Royal Kludge RK61', 'Royal Kludge', '60', 'ABS', 'Linear', 2400, 4.3, 2140, 200, 'b', [355, 'stealth', 'black'], 'Budget wireless 60% entry board', { Connectivity: 'USB-C · Bluetooth 5.0 · 2.4 GHz', 'Plate material': 'Steel', 'Mounting style': 'Tray mount', 'Hot-swap': 'Yes' }],
+  ['ajazz-ak820', 'Ajazz AK820', 'Ajazz', '75', 'ABS', 'Linear', 3500, 4.4, 756, 85, 'b', [190, 'snow', 'white'], 'Budget gasket 75% with screen', { Connectivity: 'USB-C · Bluetooth 5.0 · 2.4 GHz', 'Plate material': 'PC', 'Mounting style': 'Gasket mount', 'Hot-swap': 'Yes' }],
 ];
 
+const KC_ROWS = [
+  ['gmk-laser', 'GMK Laser', 'GMK', 'ABS', 'cyberpunk', 11900, 5, 180, 7, 'f', 'Doubleshot ABS, Cherry profile', 'Double-shot ABS', 'Cherry', '1.5 mm'],
+  ['gmk-olivia-plus', 'GMK Olivia++', 'GMK', 'ABS', 'samurai', 10500, 4.9, 210, 5, '', 'Dark with rose-gold legends, doubleshot ABS', 'Double-shot ABS', 'Cherry', '1.5 mm'],
+  ['pbtfans-bow', 'PBTfans BOW', 'PBTfans', 'PBT', 'snow', 6900, 4.8, 340, 30, 'b', 'Black on white doubleshot PBT', 'Double-shot PBT', 'Cherry', '1.5 mm'],
+  ['pbtfans-blush', 'PBTfans Blush', 'PBTfans', 'PBT', 'retro', 7200, 4.7, 160, 18, '', 'Soft pink doubleshot PBT', 'Double-shot PBT', 'Cherry', '1.5 mm'],
+  ['akko-black-gold', 'Akko Black & Gold', 'Akko', 'PBT', 'samurai', 2200, 4.6, 520, 70, 'b', 'ASA-profile PBT with gold legends', 'Double-shot PBT', 'ASA', '1.4 mm'],
+  ['akko-cinnamoroll', 'Akko Cinnamoroll', 'Akko', 'PBT', 'snow', 3400, 4.7, 410, 24, 'n', 'Themed dye-sub PBT set', 'Dye-sublimation', 'MDA', '1.4 mm'],
+  ['akko-world-tour-tokyo', 'Akko World Tour Tokyo', 'Akko', 'PBT', 'aurora', 3300, 4.7, 290, 36, '', 'Neon city dye-sub PBT', 'Dye-sublimation', 'OSA', '1.4 mm'],
+  ['ducky-joker', 'Ducky Joker', 'Ducky', 'PBT', 'cyberpunk', 4200, 4.6, 205, 22, '', 'Purple/green doubleshot PBT', 'Double-shot PBT', 'OEM', '1.5 mm'],
+  ['drop-mt3-susuwatari', 'Drop MT3 Susuwatari', 'Drop', 'ABS', 'stealth', 8900, 4.8, 145, 11, '', 'Deep-dish MT3 profile, ABS', 'Double-shot ABS', 'MT3', '1.5 mm'],
+  ['varmilo-sakura', 'Varmilo Sakura', 'Varmilo', 'PBT', 'retro', 3600, 4.7, 260, 28, '', 'Floral dye-sub PBT', 'Dye-sublimation', 'Cherry', '1.5 mm'],
+  ['epomaker-themed', 'Epomaker Themed PBT', 'Epomaker', 'PBT', 'aurora', 1900, 4.5, 700, 90, 'b', 'Value themed PBT set', 'Dye-sublimation', 'Cherry', '1.4 mm'],
+  ['dwarf-factory-artisan', 'Dwarf Factory Artisan', 'Dwarf Factory', 'Resin', 'galaxy', 2900, 4.9, 120, 0, 'n', 'Hand-cast resin artisan, limited', 'Hand-poured resin', 'Cherry (R4)', '—'],
+];
+
+const SW_ROWS = [
+  ['gateron-oil-king', 'Gateron Oil King', 'Gateron', 'Linear', 1450, 4.9, 640, 160, 'fb', 'Factory-lubed linear, 55 g, deep thock', 55, 62, 'Soft, deep thock', 'Yes'],
+  ['gateron-ink-black-v2', 'Gateron Ink Black V2', 'Gateron', 'Linear', 1250, 4.8, 570, 140, 'b', 'Smooth linear, 60 g, black housing', 60, 67, 'Smooth, mid-pitched', 'No'],
+  ['cherry-mx-red', 'Cherry MX Red', 'Cherry MX', 'Linear', 1300, 4.6, 880, 190, 'b', 'The classic linear, 45 g', 45, 60, 'Crisp, light', 'No'],
+  ['cherry-mx-brown', 'Cherry MX Brown', 'Cherry MX', 'Tactile', 1300, 4.5, 790, 180, '', 'The classic tactile, 45 g', 55, 60, 'Soft, bumpy', 'No'],
+  ['kailh-box-white', 'Kailh Box White', 'Kailh', 'Clicky', 1100, 4.6, 410, 75, '', 'Dustproof clicky, 50 g', 50, 60, 'Loud, crisp click', 'No'],
+  ['kailh-speed-silver', 'Kailh Speed Silver', 'Kailh', 'Linear', 1050, 4.5, 310, 60, '', 'Short 1.1 mm actuation linear', 45, 50, 'Light, snappy', 'No'],
+  ['akko-cream-yellow', 'Akko CS Cream Yellow', 'Akko', 'Linear', 900, 4.6, 520, 130, 'b', 'POM linear, creamy and cheap', 45, 50, 'Creamy, muted', 'Yes'],
+  ['ttc-gold-pink', 'TTC Gold Pink', 'TTC', 'Linear', 1200, 4.7, 280, 66, '', 'Pre-lubed linear, 37 g', 37, 45, 'Light, poppy', 'Yes'],
+  ['gazzew-boba-u4t', 'Gazzew Boba U4T', 'Gazzew', 'Tactile', 1800, 4.8, 360, 48, 'f', 'Silent tactile with a rounded bump', 62, 68, 'Silent, deep', 'No'],
+  ['zealpc-tealios-v2', 'ZealPC Tealios V2', 'ZealPC', 'Linear', 2400, 4.7, 150, 22, '', 'Premium smooth linear, 67 g', 67, 78, 'Clean, bright', 'No'],
+  ['outemu-silent-peach', 'Outemu Silent Peach', 'Outemu', 'Silent', 700, 4.3, 430, 140, 'b', 'Budget silent tactile', 55, 60, 'Dampened', 'No'],
+  ['wooting-lekker', 'Wooting Lekker', 'Wooting', 'Magnetic', 2600, 4.9, 190, 31, 'n', 'Hall Effect switch, 0.1–4.0 mm adjustable', 40, 45, 'Smooth, neutral', 'Yes'],
+];
+
+const FLAG = (f) => ({ featured: f.includes('f'), new: f.includes('n'), bestSeller: f.includes('b') });
+
+const keyboards = KB_ROWS.map(([id, name, brand, layout, material, sw, price, rating, reviews, stock, flags, [hue, theme, caseId], short, spec], i) => ({
+  ...base('keyboards'), ...FLAG(flags), id, name, brand, layout, material, switchType: sw, price, rating, reviews, stock, short, addedAt: 40 - i,
+  description: `${short}. A ${layout === 'tkl' ? 'tenkeyless' : layout === 'full' ? 'full-size' : layout + '%'} board from ${brand}.`,
+  image: img(id, { kind: 'keyboard', layout, hue, theme, case: caseId }),
+  variants: [colors([['Default', '#2a2f3d'], ['Alternate', '#e6e9f0']]), ...(spec['Hot-swap'].startsWith('No') ? [] : [switchVar(['Linear', 'Tactile', 'Clicky'])]), kit].filter(Boolean),
+  specifications: { Layout: layout === 'tkl' ? 'TKL' : layout === 'full' ? 'Full size' : layout + '%', 'Case material': material === 'ABS' ? 'ABS plastic' : material, 'Plate material': spec['Plate material'], PCB: spec['Hot-swap'], 'Mounting style': spec['Mounting style'], Connectivity: spec.Connectivity, Brand: brand },
+}));
+
+const keycaps = KC_ROWS.map(([id, name, brand, material, theme, price, rating, reviews, stock, flags, short, method, profile, thick], i) => ({
+  ...base('keycaps'), ...FLAG(flags), id, name, brand, material, theme, price, rating, reviews, stock, short, addedAt: 30 - i,
+  description: `${short}. From ${brand}.`,
+  image: img(id, { kind: material === 'Resin' ? 'artisan' : 'keycaps', theme }),
+  variants: [{ type: 'Kit', options: [{ name: 'Base kit', price: 0 }, { name: 'Base + Novelties', price: Math.round(price * 0.25) }] }],
+  specifications: { Material: material, Profile: profile, Compatibility: 'MX-style stems', 'Manufacturing method': method, Thickness: thick, Brand: brand },
+}));
+
+const switches = SW_ROWS.map(([id, name, brand, type, price, rating, reviews, stock, flags, short, act, bottom, sound, lube], i) => ({
+  ...base('switches'), ...FLAG(flags), id, name, brand, switchType: type, price, rating, reviews, stock, short, addedAt: 20 - i,
+  description: `${short}. By ${brand}, sold in packs of 70.`,
+  image: img(id, { kind: 'switch', switchType: type.toLowerCase(), hue: { Linear: 355, Tactile: 28, Clicky: 218, Silent: 268, Magnetic: 190 }[type] }),
+  variants: [{ type: 'Pack', options: [{ name: '35 pcs', price: -Math.round(price * 0.4) }, { name: '70 pcs', price: 0 }, { name: '110 pcs', price: Math.round(price * 0.5) }] }],
+  specifications: { 'Switch type': type, 'Actuation force': `${act} gf`, 'Bottom-out force': `${bottom} gf`, 'Total travel': type === 'Magnetic' ? '4.0 mm (adjustable)' : '3.6–4.0 mm', 'Sound profile': sound, 'Factory lubrication': lube, Brand: brand },
+}));
+
+export const PRODUCTS = [...keyboards, ...keycaps, ...switches];
+
 export const CATEGORIES = [
-  { id: 'keyboards', name: 'Keyboards', icon: 'keyboard', blurb: 'Complete boards from 60% to full-size.', tags: ['60%', '65%', '75%', 'TKL', '96%', 'Full Size'], hue: 190 },
-  { id: 'keycaps', name: 'Keycaps', icon: 'keycap', blurb: 'Sets for every taste, profile and plastic.', tags: ['PBT', 'ABS', 'Double-shot', 'Artisan', 'Themed sets', 'Custom sets'], hue: 268 },
-  { id: 'switches', name: 'Switches', icon: 'switch', blurb: 'Find the feel and sound that suits you.', tags: ['Linear', 'Tactile', 'Clicky', 'Silent', 'Magnetic'], hue: 28 },
+  { id: 'keyboards', name: 'Keyboards', icon: 'keyboard', blurb: 'Keychron, Wooting, NuPhy, Akko, HHKB and more.', tags: ['60%', '65%', '75%', 'TKL', '96%', 'Full Size'], hue: 190 },
+  { id: 'keycaps', name: 'Keycaps', icon: 'keycap', blurb: 'GMK, PBTfans, Akko, Ducky and artisan sets.', tags: ['PBT', 'ABS', 'Double-shot', 'Artisan', 'Themed sets', 'Custom sets'], hue: 268 },
+  { id: 'switches', name: 'Switches', icon: 'switch', blurb: 'Gateron, Cherry, Kailh, Gazzew, Wooting and more.', tags: ['Linear', 'Tactile', 'Clicky', 'Silent', 'Magnetic'], hue: 28 },
 ];

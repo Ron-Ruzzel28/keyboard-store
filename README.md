@@ -32,5 +32,5 @@ js/views/   Home · Products · ProductDetails · KeyboardBuilder · Cart · Che
 
 ## Notes
 - All data is sample data persisted in `localStorage` (`window.keyforge.reset()` clears it). Auth and payments are simulated; passwords are stored in plain text in the browser for demo purposes only. Do not reuse this for production.
-- Product images are procedural SVG (`js/components/ProductArt.js`); set `product.image.src` to use real photos.
+- The catalogue uses real brands/models (Keychron, Wooting, NuPhy, Akko, HHKB, Gateron, Cherry, GMK, PBTfans…) with **illustrative prices and specs**. Photos: add files to `assets/products/` and register them in `js/data/photos.js`; products without a photo show generated SVG art (`js/components/ProductArt.js`).
 - `graphify-out/` holds a knowledge graph of the codebase (`graph.html`, `GRAPH_REPORT.md`) built with [graphify](https://github.com/safishamsi/graphify). The UI was built following the [impeccable](https://github.com/pbakaus/impeccable) design skill (installed under `.agents/skills`).

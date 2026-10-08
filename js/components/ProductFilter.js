@@ -7,7 +7,7 @@ export const SORTS = [
 ];
 export const MATERIALS = ['ABS', 'PBT', 'Resin', 'Aluminum', 'Polycarbonate', 'Brass'];
 
-export const defaultFilters = () => ({ cat: '', layouts: [], types: [], materials: [], min: 0, max: 12000, inStock: false, q: '', sort: 'featured' });
+export const defaultFilters = () => ({ cat: '', layouts: [], types: [], materials: [], min: 0, max: 25000, inStock: false, q: '', sort: 'featured' });
 
 export function parseFilters(query) {
   const f = defaultFilters();
@@ -19,7 +19,7 @@ export function parseFilters(query) {
   return f;
 }
 export function filtersToQuery(f) {
-  return { cat: f.cat, layout: f.layouts.join(','), type: f.types.join(','), mat: f.materials.join(','), min: f.min > 0 ? f.min : '', max: f.max < 12000 ? f.max : '', stock: f.inStock ? '1' : '', q: f.q, sort: f.sort === 'featured' ? '' : f.sort };
+  return { cat: f.cat, layout: f.layouts.join(','), type: f.types.join(','), mat: f.materials.join(','), min: f.min > 0 ? f.min : '', max: f.max < 25000 ? f.max : '', stock: f.inStock ? '1' : '', q: f.q, sort: f.sort === 'featured' ? '' : f.sort };
 }
 export function applyFilters(products, f) {
   const q = f.q.toLowerCase().trim();
@@ -45,11 +45,11 @@ export function filterPanel(f, counts = {}) {
     <form class="filters" aria-label="Product filters" novalidate>
       ${group('Category', html`<div class="fchecks">${[['', 'All products'], ['keyboards', 'Keyboards'], ['keycaps', 'Keycaps'], ['switches', 'Switches']].map(([v, l]) => html`<label class="check"><input type="radio" name="cat" value="${v}" ${f.cat === v ? 'checked' : ''}><span>${l}</span>${counts[v || 'all'] != null ? html`<em>${counts[v || 'all']}</em>` : ''}</label>`)}</div>`)}
       ${group('Price', html`
-        <div class="range2" style="--lo:${(f.min / 12000) * 100}%;--hi:${(f.max / 12000) * 100}%">
-          <input type="range" name="min" min="0" max="12000" step="100" value="${f.min}" aria-label="Minimum price">
-          <input type="range" name="max" min="0" max="12000" step="100" value="${f.max}" aria-label="Maximum price">
+        <div class="range2" style="--lo:${(f.min / 25000) * 100}%;--hi:${(f.max / 25000) * 100}%">
+          <input type="range" name="min" min="0" max="25000" step="250" value="${f.min}" aria-label="Minimum price">
+          <input type="range" name="max" min="0" max="25000" step="250" value="${f.max}" aria-label="Maximum price">
         </div>
-        <div class="row between num price-out"><output data-out="min">${money(f.min)}</output><output data-out="max">${money(f.max)}${f.max >= 12000 ? '+' : ''}</output></div>`)}
+        <div class="row between num price-out"><output data-out="min">${money(f.min)}</output><output data-out="max">${money(f.max)}${f.max >= 25000 ? '+' : ''}</output></div>`)}
       ${group('Keyboard layout', checks('layout', Object.values(LAYOUTS).map((l) => [l.id, l.label]), f.layouts))}
       ${group('Switch type', checks('type', Object.values(SWITCH_TYPES).map((s) => [s.id, s.name]), f.types))}
       ${group('Material', checks('mat', MATERIALS.map((m) => [m, m]), f.materials))}

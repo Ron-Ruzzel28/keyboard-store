@@ -56,7 +56,7 @@ export default async function Products({ query }) {
     $('#result-count', el).textContent = `${out.length} ${out.length === 1 ? 'product' : 'products'}`;
     grid.removeAttribute('aria-busy');
     renderGrid(grid, out, { onReset: true });
-    const active = f.layouts.length + f.types.length + f.materials.length + (f.min > 0 || f.max < 12000 ? 1 : 0) + (f.inStock ? 1 : 0) + (f.cat ? 1 : 0);
+    const active = f.layouts.length + f.types.length + f.materials.length + (f.min > 0 || f.max < 25000 ? 1 : 0) + (f.inStock ? 1 : 0) + (f.cat ? 1 : 0);
     const fc = $('#filter-count', el); fc.hidden = !active; fc.textContent = active;
     $('#shop-title', el).textContent = TITLES[f.cat] ?? 'Products';
     $('#shop-blurb', el).textContent = BLURBS[f.cat] ?? BLURBS[''];
@@ -74,9 +74,9 @@ export default async function Products({ query }) {
     const form = e.target.closest('.filters');
     if (form) {
       const next = readFilters(form, f);
-      const r = form.querySelector('.range2'); r.style.setProperty('--lo', (next.min / 12000) * 100 + '%'); r.style.setProperty('--hi', (next.max / 12000) * 100 + '%');
+      const r = form.querySelector('.range2'); r.style.setProperty('--lo', (next.min / 25000) * 100 + '%'); r.style.setProperty('--hi', (next.max / 25000) * 100 + '%');
       form.querySelector('[data-out=min]').textContent = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 }).format(next.min);
-      form.querySelector('[data-out=max]').textContent = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 }).format(next.max) + (next.max >= 12000 ? '+' : '');
+      form.querySelector('[data-out=max]').textContent = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 }).format(next.max) + (next.max >= 25000 ? '+' : '');
       update({ cat: next.cat, layouts: next.layouts, types: next.types, materials: next.materials, min: next.min, max: next.max, inStock: next.inStock });
     }
   });

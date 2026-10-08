@@ -62,6 +62,7 @@ export default async function ProductDetails({ params }) {
 
       <section class="pd-specs" aria-labelledby="spec-h">
         <h2 id="spec-h" class="reveal">Specifications</h2>
+        <p class="faint" style="margin:-8px 0 16px;font-size:.85rem">Placeholder test data: prices and specifications are illustrative, not official.</p>
         <dl class="specs reveal">${Object.entries(p.specifications).map(([k, v]) => html`<div><dt>${k}</dt><dd>${v}</dd></div>`)}</dl>
       </section>
 

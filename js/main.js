@@ -8,6 +8,7 @@ import { mountFooter } from './components/Footer.js';
 import { mountCartDrawer } from './components/CartDrawer.js';
 import { mountSearch } from './components/SearchOverlay.js';
 import { toast } from './components/ToastNotification.js';
+import { artSVG } from './components/ProductArt.js';
 
 import Home from './views/Home.js';
 import Products from './views/Products.js';
@@ -97,6 +98,19 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault(); search.isOpen() ? search.close() : search.open();
   }
 });
+
+// Real photo missing or broken? Fall back to the procedural SVG art for that product.
+document.addEventListener('error', (e) => {
+  const t = e.target;
+  if (!(t instanceof HTMLImageElement) || t.dataset.fb) return;
+  t.dataset.fb = '1';
+  const p = getProduct(t.dataset.pid) || state.cart.find((l) => l.productId === t.dataset.pid);
+  const image = p && p.image;
+  if (!image) return;
+  const holder = document.createElement('template');
+  holder.innerHTML = artSVG({ ...image, src: undefined });
+  t.replaceWith(holder.content);
+}, true);
 
 window.addEventListener('keyforge:reset', resetStore);
 window.keyforge = { reset: resetStore, state };

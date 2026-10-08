@@ -93,6 +93,6 @@ export function artSVG(img = {}, opts = {}) {
 // Markup for cards/thumbs. `opts` may override hue / case colour (used for variant swatches).
 export function productArt(product, opts = {}) {
   const img = product.image || {};
-  if (img.src) return raw(`<img src="${esc(img.src)}" alt="${esc(product.name)}" loading="lazy" decoding="async">`);
+  if (img.src) return raw(`<img src="${esc(img.src)}" alt="${esc(product.name)}" loading="lazy" decoding="async" data-pid="${esc(product.id || '')}">`);
   return raw(artSVG(img, opts));
 }
