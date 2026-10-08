@@ -30,6 +30,11 @@ js/components/  Navbar · Footer · ProductCard · ProductGrid · ProductFilter 
 js/views/   Home · Products · ProductDetails · KeyboardBuilder · Cart · Checkout · Auth · Account · AdminDashboard …
 ```
 
+## Adding product photos
+1. Open `tools/photo-urls.txt`. For each product, uncomment its line and paste a direct image URL (right-click an image, *Copy image address*), optionally followed by a credit.
+2. On a machine with normal internet access run `node tools/fetch-photos.mjs` (Node 18+, no dependencies; `--dry` previews, `--force` re-downloads).
+3. It saves files to `assets/products/`, registers them in `js/data/photos.js` and writes `CREDITS.md`. Commit the result.
+
 ## Notes
 - All data is sample data persisted in `localStorage` (`window.keyforge.reset()` clears it). Auth and payments are simulated; passwords are stored in plain text in the browser for demo purposes only. Do not reuse this for production.
 - The catalogue uses real brands/models (Keychron, Wooting, NuPhy, Akko, HHKB, Gateron, Cherry, GMK, PBTfans…) with **illustrative prices and specs**. Photos: add files to `assets/products/` and register them in `js/data/photos.js`; products without a photo show generated SVG art (`js/components/ProductArt.js`).
