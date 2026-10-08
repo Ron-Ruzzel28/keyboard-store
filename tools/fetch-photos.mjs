@@ -30,10 +30,14 @@ const lines = (await readFile(LIST, 'utf8')).split(/\r?\n/);
 const jobs = [];
 lines.forEach((raw, i) => {
   const line = raw.trim();
-  if (!line || line.startsWith('#')) return;
-  const m = line.match(/^(\S+)\s+(https?:\/\/\S+)(?:\s+(.*))?$/);
+  if (!line || line.startsWith('#') || /^-{2,}/.test(line)) return;
+  // Accept "id url credit", also with the URL wrapped in (...), <...> or quotes.
+  const m = line.match(/^(\S+)\s+[(<"']?(https?:\/\/[^\s)>"']+)[)>"']?(?:\s+(.*))?$/);
   if (!m) return console.warn(`line ${i + 1}: expected "<id> <url> [credit]", skipped`);
   const [, id, url, credit = ''] = m;
+  if (/^https?:\/\/(www\.)?google\.[a-z.]+\/search|[?&]tbm=isch/i.test(url) || /\.(pdf|html?)(\?|$)/i.test(new URL(url).pathname + new URL(url).search)) {
+    return console.warn(`line ${i + 1}: ${id}: this is a web page, not an image file. Open the image and copy the image address. Skipped`);
+  }
   if (!ids.has(id)) return console.warn(`line ${i + 1}: unknown product id "${id}", skipped`);
   jobs.push({ id, url, credit });
 });
